@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.scm20.scm20.entity.User;
 import com.scm20.scm20.forms.UserForm;
+import com.scm20.scm20.helper.Message;
+import com.scm20.scm20.helper.MessageType;
 import com.scm20.scm20.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,19 +72,33 @@ public class PageController {
     // Process Register
     
     @RequestMapping(value = "/do-register", method=RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@ModelAttribute UserForm userForm,HttpSession session) {
         System.out.println("Processing Register");
         
         System.out.println(userForm);
 
-        User savedUser = User.builder().userName(userForm.getName()).email(userForm.getEmail()).password(userForm.getPassword()).build();
+        //User savedUser = User.builder().userName(userForm.getName()).email(userForm.getEmail()).password(userForm.getPassword()).build();
 
-        userService.saveUser(savedUser);
+        User user = new User();
+        user.setUserName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setPhoneNumber(userForm.getPhone());
+        user.setAbout(userForm.getAbout());
+        user.setProfilePic("https://github.com/sushantgai/SCM/blob/main/src/main/resources/static/images/SmartSelect_20241229-170935_WhatsApp.jpg");
+        
+        userService.saveUser(user);
+        //userService.saveUser(savedUser);
         System.out.println("User Saved");
 
+        Message message = Message.builder().content("Registration Successful").type(MessageType.blue).build();
 
-        return "redirect:/login";
-    
+        session.setAttribute("message", message);
+
+
+
+
+        return "redirect:/register"; 
     }
     
 }
