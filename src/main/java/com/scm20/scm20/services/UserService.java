@@ -1,7 +1,8 @@
-package services;
+package com.scm20.scm20.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import com.scm20.scm20.entity.User;
 
 public interface UserService {
@@ -22,6 +23,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    // add more methods here related user service[logic]
 
-}
+
+    
+} 

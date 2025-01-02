@@ -1,4 +1,4 @@
-package forms;
+package com.scm20.scm20.forms;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +20,9 @@ public class UserForm{
     private String password;
     private String about;
     private String phone;
+    public String getProfilePic() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getProfilePic'");
+    }
     
 }

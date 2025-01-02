@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.Table;
 
-@Entity
+@Entity(name = "user")
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +25,7 @@ import jakarta.persistence.Table;
 @Setter
 public class User {
 	
+
 	@Id
 	private String userID;
 
@@ -46,14 +47,43 @@ public class User {
 	@Column(name = "profile_pic")
 	private String profilePic;
 
-	private boolean enable=false;
+    @Column(nullable = false)
+    private boolean enabled = false;
+	
 	private boolean emailVerified = false;
-	private boolean phoneVerified = false;
-	private Providers provider = Providers.SELF;
-    private String providerUserId;
 
+	private boolean phoneVerified = false;
+
+	private Providers provider = Providers.SELF;
+	private String providerUserId;
+
+	@Builder.Default
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY ,orphanRemoval = true)
 	private List<Contact> contacts = new ArrayList<>();
+
+    public Object getName() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getName'");
+    }
+
+	public void setName(Object name) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'setName'");
+	}
+
+
+
+	public String getUserId() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getUserId'");
+	}
+
+	public void setUserId(String userId2) {
+		this.userID = userId2;
+	}
+	public boolean isEnabled() {
+        return this.enabled;
+    }
 
 	
 
